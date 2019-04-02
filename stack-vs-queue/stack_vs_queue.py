@@ -44,16 +44,21 @@ def dequeue_elements(queue):
         queue.dequeue()
 
 def time_queue(data_set, n):
-    elapsed_time = []
+    enqueue_elapsed_time = []
+    dequeue_elapsed_time = []
     for _ in range(10):
-        start_time = time.time_ns()
         queue = Queue(n)
+        start_time = time.time_ns()
         enqueue_elements(queue, data_set)
+        end_time = time.time_ns()
+        enqueue_elapsed_time.append(end_time - start_time)
+
+        start_time = time.time_ns()
         dequeue_elements(queue)
         end_time = time.time_ns()
-        elapsed_time.append(end_time - start_time)
+        dequeue_elapsed_time.append(end_time - start_time)
 
-    return elapsed_time
+    return enqueue_elapsed_time, dequeue_elapsed_time
 
 def average_time(times):
     total_time = 0
