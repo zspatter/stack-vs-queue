@@ -13,21 +13,11 @@ def push_elements(stack, filename):
                 except ValueError:
                     pass
 
+
 def pop_elements(stack):
     while not stack.is_empty():
         stack.pop()
 
-def time_stack(data_set):
-    elapsed_time = []
-    for _ in range(10):
-        start_time = time.time_ns()
-        stack = Stack()
-        push_elements(stack, data_set)
-        pop_elements(stack)
-        end_time = time.time_ns()
-        elapsed_time.append(end_time - start_time)
-
-    return elapsed_time
 
 def enqueue_elements(queue, filename):
     with open(filename + '.csv', 'r') as csv_file:
@@ -39,13 +29,35 @@ def enqueue_elements(queue, filename):
                 except ValueError:
                     pass
 
+
 def dequeue_elements(queue):
     while not queue.is_empty():
         queue.dequeue()
 
+
+def time_stack(data_set):
+    push_elapsed_time = []
+    pop_elapsed_time = []
+
+    for _ in range(10):
+        stack = Stack()
+        start_time = time.time_ns()
+        push_elements(stack, data_set)
+        end_time = time.time_ns()
+        push_elapsed_time.append(end_time - start_time)
+
+        start_time = time.time_ns()
+        pop_elements(stack)
+        end_time = time.time_ns()
+        pop_elapsed_time.append(end_time - start_time)
+
+    return push_elapsed_time, pop_elapsed_time
+
+
 def time_queue(data_set, n):
     enqueue_elapsed_time = []
     dequeue_elapsed_time = []
+
     for _ in range(10):
         queue = Queue(n)
         start_time = time.time_ns()
@@ -60,6 +72,7 @@ def time_queue(data_set, n):
 
     return enqueue_elapsed_time, dequeue_elapsed_time
 
+
 def average_time(times):
     total_time = 0
     for element in times:
@@ -67,18 +80,23 @@ def average_time(times):
 
     return int(total_time / len(times))
 
+
 def run_comparison(filename, n):
     print(filename + ' comparison:')
-    stack_times = time_stack(filename)
-    queue_times = time_queue(filename, n)
+    push_times, pop_times = time_stack(filename)
+    enqueue_times, dequeue_times = time_queue(filename, n)
 
-    stack_avg = average_time(stack_times)
-    queue_avg = average_time(queue_times)
+    print('Stack:')
+    print('\tPush times: ' + str(push_times))
+    print(f'\tAverage: {average_time(push_times): ,d}\n')
+    print('\tPop times: ' + str(pop_times))
+    print(f'\tAverage: {average_time(pop_times): ,d}\n')
 
-    print('\tStack times: \n\t' + str(stack_times))
-    print(f'\t\tAverage time: {stack_avg: ,d} ns\n')
-    print('\tQueue times: \n\t' + str(queue_times))
-    print(f'\t\tAverage time: {queue_avg: ,d} ns\n')
+    print('Queue:')
+    print('\tEnqueue times: ' + str(enqueue_times))
+    print(f'\tAverage: {average_time(enqueue_times): ,d}\n')
+    print('\tDequeue times: ' + str(dequeue_times))
+    print(f'\tAverage: {average_time(dequeue_times): ,d}\n\n')
 
 
 run_comparison('1k_ints', 1000)
