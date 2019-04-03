@@ -1,65 +1,55 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class StackVsQueue
 {
     public static void main(String[] args)
     {
         runComparison(new File("1k_ints.csv"), 1000);
-//        runComparison(new File("10k_ints.csv"), 10000);
-//        runComparison(new File("100k_ints.csv"), 100000);
-//        runComparison(new File("1000k_ints.csv"), 1000000);
-
+        runComparison(new File("10k_ints.csv"), 10000);
+        runComparison(new File("100k_ints.csv"), 100000);
+        runComparison(new File("1000k_ints.csv"), 1000000);
     }
 
     private static void pushElements(Stack stack, File file)
     {
         try (Scanner scanner = new Scanner(file))
         {
-            scanner.useDelimiter(",");
-            int counter = 0;
-            while (scanner.hasNext())
+            while (scanner.hasNextLine())
             {
-                if (counter % 20 != 0)
-                    stack.push(Integer.parseInt(scanner.next()));
-                 else
-                    scanner.next();
+                String line = scanner.nextLine();
+                String[] tokens = line.split(",");
 
-                counter++;
+                for(String token : tokens)
+                    stack.push(Integer.parseInt(token));
             }
         } catch (FileNotFoundException e)
         {
             e.printStackTrace();
             System.exit(1);
         }
-        System.out.println(stack.toString());
     }
 
     private static void popElements(Stack stack)
     {
         while (!stack.isEmpty())
             stack.pop();
-        System.out.println(stack.toString());
     }
 
     private static void enqueueElements(Queue queue, File file)
     {
         try (Scanner scanner = new Scanner(file))
         {
-            scanner.useDelimiter(",");
-            int counter = 0;
-
-            while (scanner.hasNext())
+            while (scanner.hasNextLine())
             {
-                if (counter % 20 != 0)
-                    queue.enqueue(Integer.parseInt(scanner.next()));
-                else
-                    scanner.next();
+                String line = scanner.nextLine();
+                String[] tokens = line.split(",");
 
-                counter++;
+                for(String token : tokens)
+                    queue.enqueue(Integer.parseInt(token));
             }
         } catch (FileNotFoundException e)
         {
