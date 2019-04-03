@@ -1,2 +1,2 @@
-# stack_vs_queue
+# stack-vs-queue
 A brief comparison in performance between stacks and queues
