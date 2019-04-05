@@ -1,8 +1,8 @@
 public class Queue
 {
     private int front, rear, size;
-    int capacity;
-    int[] queue;
+    private int capacity;
+    private int[] queue;
 
     public Queue()
     {
