@@ -48,7 +48,7 @@ public class Stack
             return Integer.MIN_VALUE;
         }
 
-        return stack[top--];
+        return this.stack[top--];
     }
 
     public int peak()
