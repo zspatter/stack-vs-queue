@@ -14,6 +14,12 @@ public class StackVsQueue
         runComparison(new File("1000k_ints.csv"), 1000000);
     }
 
+    /**
+     * pushes all of the elements in the given file to the stack
+     *
+     * @param stack stack structure which will hold elements
+     * @param file  data set of elements (must be CSV)
+     */
     private static void pushElements(Stack stack, File file)
     {
         try (Scanner scanner = new Scanner(file))
@@ -33,12 +39,23 @@ public class StackVsQueue
         }
     }
 
+    /**
+     * pops all of the elements currently in the passed stack
+     *
+     * @param stack stack containing elements
+     */
     private static void popElements(Stack stack)
     {
         while (!stack.isEmpty())
             stack.pop();
     }
 
+    /**
+     * enqueues all of the elements in the given file to the queue
+     *
+     * @param queue queue passed to function to hold elements
+     * @param file data set of elements (must be CSV)
+     */
     private static void enqueueElements(Queue queue, File file)
     {
         try (Scanner scanner = new Scanner(file))
@@ -58,12 +75,28 @@ public class StackVsQueue
         }
     }
 
+    /**
+     * dequeues all of the elements currently in the passed queue
+     *
+     * @param queue queue containing elements
+     */
     private static void dequeueElements(Queue queue)
     {
         while (!queue.isEmpty())
             queue.dequeue();
+
     }
 
+    /**
+     * times the insertion and deletion operations for the given data set
+     * each time is measured in nanoseconds and the data set is tested 10 times
+     *
+     * @param file data set of elements (must be CSV)
+     * @param capacity number of elements (sets capacity for stack)
+     * @return long[][] array containing 2 elements:
+     *              the first represents the push times for each iteration
+     *              the second represents the pop times for each iteration
+     */
     private static long[][] timeStack(File file, int capacity)
     {
         long[] pushElapsedTime = new long[10];
@@ -84,6 +117,16 @@ public class StackVsQueue
         return new long[][] {pushElapsedTime, popElapsedTime};
     }
 
+    /**
+     * times the insertion and deletion operations for the given data set
+     * each time is measured in nanoseconds, and the data set is tested 10 times
+     *
+     * @param file data set of elements (must be CSV)
+     * @param capacity number of elements (sets capacity for queue)
+     * @return long[][] array containing 2 elements:
+     *              the first represents the enqueue times for each iteration
+     *              the second represents the dequeue times for each iteration
+     */
     private static long[][] timeQueue(File file, int capacity)
     {
         long[] enqueueElapsedTime = new long[10];
@@ -104,6 +147,12 @@ public class StackVsQueue
         return new long[][] {enqueueElapsedTime, dequeueElapsedTime};
     }
 
+    /**
+     * takes a collection of times and finds the average
+     *
+     * @param times 2D array containing a collection of insertion and deletion times
+     * @return an array containing the average of all the insertion and deletion times
+     */
     private static long[] averageTimes(long[][] times)
     {
         long insertionTime = 0;
@@ -120,6 +169,16 @@ public class StackVsQueue
         return new long[] {insertionTime, deletionTime};
     }
 
+    /**
+     * runs a comparison between stacks and queues considering both insertion
+     * and deletion operations using the given data set
+     *
+     * A summary is printed to the console indicating the file's name,
+     * individual times for each run and the overall average time
+     *
+     * @param file data set to be tested (must be CSV)
+     * @param capacity number of elements in the data set (sets stack/queue capacity)
+     */
     private static void runComparison(File file, int capacity)
     {
         System.out.println(file.toString());
