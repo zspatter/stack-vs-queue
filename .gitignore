@@ -1,2 +1,7 @@
 
 .DS_Store
+.idea/misc.xml
+.idea/modules.xml
+.idea/stack-vs-queue.iml
+.idea/vcs.xml
+.idea/workspace.xml
