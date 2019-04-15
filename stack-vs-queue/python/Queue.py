@@ -2,6 +2,7 @@
 Python implementation of queue
 """
 
+
 class Queue:
 
     def __init__(self, capacity):

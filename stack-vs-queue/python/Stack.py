@@ -2,6 +2,7 @@
 Python implementation of stack
 """
 
+
 class Stack:
 
     def __init__(self):

@@ -1,6 +1,8 @@
-import csv, time
-from Stack import Stack
+import csv
+import time
+
 from Queue import Queue
+from Stack import Stack
 
 
 def push_elements(stack, filename):
