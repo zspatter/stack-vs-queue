@@ -5,3 +5,4 @@
 .idea/stack-vs-queue.iml
 .idea/vcs.xml
 .idea/workspace.xml
+*.pyc
