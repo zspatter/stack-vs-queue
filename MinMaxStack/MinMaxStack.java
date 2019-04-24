@@ -1,10 +1,3 @@
-/**
- * Zachary Patterson
- * Lab 8 - Data Structures
- * 2019-04-24
- * INFO 211
- */
-
 import java.util.Arrays;
 import java.util.LinkedList;
 
